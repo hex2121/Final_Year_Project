@@ -5,9 +5,10 @@ from AutomationController.DriverUtilities.DriverUtils import DriverUtilitiesMeth
 class SearchPage(DriverUtilitiesMethod):
 
     def open_searched_item(self, driver, item):
+        elements = driver.find_elements(value=f"//span[contains(text(),'{item}')]//parent::a", by=By.XPATH)
         try:
-            elements = driver.find_elements(value=f"//a/span[contains(text(),'{item}')]", by=By.XPATH)
             elements[0].click()
-            self.switch_to_tab(0)
+            self.switch_to_tab(1)
         except:
-            print("item was not found")
+            elements[1].click()
+            self.switch_to_tab(1)
